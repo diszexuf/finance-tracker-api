@@ -12,7 +12,11 @@ import java.util.UUID;
         schema = "public",
         name = "categories",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_name", columnNames = {"name"})
+                @UniqueConstraint(name = "uk_name_user", columnNames = {"name", "user_id"})
+        },
+        indexes = {
+                @Index(name = "idx_name", columnList = "name"),
+                @Index(name = "idx_user_id", columnList = "user_id")
         }
 )
 @Getter
@@ -34,6 +38,10 @@ public class Category {
     @Column(name = "type", length = 50, nullable = false)
     private CategoryType type;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     private List<Transaction> transactions = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

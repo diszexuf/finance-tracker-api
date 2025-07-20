@@ -1,17 +1,18 @@
 package com.diszexuf.personalfinancetracker.service;
 
 import com.diszexuf.personalfinancetracker.dto.category.CategoryRequestDto;
+import com.diszexuf.personalfinancetracker.dto.category.CategoryResponseDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ICategoryService {
-    CategoryRequestDto createCategory(CategoryRequestDto dto);
+    CategoryResponseDto createCategory(CategoryRequestDto dto);
 
-    List<CategoryRequestDto> getAllCategories();
+    List<CategoryResponseDto> getAllCategories();
 
-    CategoryRequestDto updateCategory(CategoryRequestDto dto);
+    CategoryResponseDto updateCategory(UUID id, CategoryRequestDto dto);
 
-    CategoryRequestDto deleteCategory(UUID id);
+    void deleteCategory(UUID id);
 
 }

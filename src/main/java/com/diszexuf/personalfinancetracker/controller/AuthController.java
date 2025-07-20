@@ -5,6 +5,7 @@ import com.diszexuf.personalfinancetracker.dto.auth.AuthResponseDto;
 import com.diszexuf.personalfinancetracker.dto.auth.RegistrationRequestDto;
 import com.diszexuf.personalfinancetracker.dto.auth.RegistrationResponseDto;
 import com.diszexuf.personalfinancetracker.service.IAuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +19,18 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
     public RegistrationResponseDto registerUser(
-            @RequestBody RegistrationRequestDto registrationRequestDto
+            @Valid @RequestBody RegistrationRequestDto registrationRequestDto
     ) {
         RegistrationResponseDto registrationResponseDto = IAuthService.registerUser(registrationRequestDto);
         return registrationResponseDto;
     }
 
     @PostMapping(value = "/login")
+    @ResponseBody
     public AuthResponseDto loginUser(
-            @RequestBody AuthRequestDto authRequestDto
+            @Valid @RequestBody AuthRequestDto authRequestDto
     ) {
         AuthResponseDto authResponseDto = IAuthService.authUser(authRequestDto);
         return authResponseDto;
